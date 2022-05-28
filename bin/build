@@ -8,24 +8,31 @@ SPLITTER = /\s*,\s*/
 raise 'lang and platform not provided' unless ARGV[0] && ARGV[1] && ARGV[2]
 
 name = ARGV[0]
-@langs = [''] + ARGV[1].split(SPLITTER)
+@langs = ARGV[1].split(SPLITTER)
 @platforms = ['common'] + ARGV[2].split(SPLITTER)
-@build_path = "tmp.build/#{name}/man1/"
+@build_path = "tmp.build/#{name}/"
 
 
 FileUtils.mkdir_p(File.join(@build_path, 'man1'))
 
 def add_folder path, out = nil
-  out ||= File.join(@build_path, 'man1')
+  # puts pathg
+  # puts out
   if File.exist?(path)
+    out ||= File.join(@build_path, 'man1')
+    FileUtils.mkdir_p(out)
     FileUtils.cp(Dir[File.join(path,'*.gz')], out) 
   end
 end
 
 def add_langs lang
   lang_path = "tmp.man/pages.#{lang}/"
+  puts lang_path
+  puts File.exist?(lang_path)
   if File.exist?(lang_path)
-    add_folder
+    @platforms.each do |plf|
+      add_folder File.join(lang_path, plf), File.join(@build_path, lang, 'man1')
+    end
   end
 end
 
@@ -34,13 +41,8 @@ end
 end
 
 @langs.each do |lang|
-  lang = '.'+lang if lang!=''
-  
-  @platforms.each do |plf|
-    add_folder "tmp.man/pages#{lang}/#{plf}/" 
-  end
+  add_langs(lang)
 end
-
 
 %x|zip -r #{name}.zip #{@build_path}|
 
