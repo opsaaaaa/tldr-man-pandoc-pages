@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+require 'paru/pandoc'
+require 'fileutils'
+require 'zlib'
+
+
+
+file_list = Dir['tmp.src/pages*/**/*.md']
+
+counter = 0
+total = file_list.size
+
+def count_to_percent(t,c)
+  ((t.to_f/c.to_f) * 100).round
+end
+
+begin
+  file_list.each do |src_file|
+    
+    dest_file = src_file.gsub(/^tmp.src\//, 'tmp.man/').gsub(/.md$/, '.1')
+
+    FileUtils.mkdir_p(File.dirname(dest_file))
+    
+    pandoc = Paru::Pandoc.new
+
+    pandoc.configure do
+      from 'markdown'
+      to 'man'
+      standalone true
+      output dest_file
+    end
+
+    pandoc.convert File.read(src_file)
+
+    #.gsub(/^> /, '    ')
+
+    Zlib::GzipWriter.open(dest_file+'.gz') do |gz|
+      gz.write IO.binread(dest_file)
+    end
+
+    FileUtils.rm(dest_file)
+
+    counter += 1
+    puts "[#{count_to_percent(counter, total)}%]: #{src_file} > #{dest_file}"
+
+  end
+
+  puts 'Done'
+rescue Interrupt
+  puts ''
+  puts "Build stopped at [#{count_to_percent(counter, total)}%]"
+end
+
+
