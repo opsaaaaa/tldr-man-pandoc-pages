@@ -16,8 +16,6 @@ name = ARGV[0]
 FileUtils.mkdir_p(File.join(@build_path, 'man1'))
 
 def add_folder path, out = nil
-  # puts pathg
-  # puts out
   if File.exist?(path)
     out ||= File.join(@build_path, 'man1')
     FileUtils.mkdir_p(out)
@@ -27,8 +25,6 @@ end
 
 def add_langs lang
   lang_path = "tmp.man/pages.#{lang}/"
-  puts lang_path
-  puts File.exist?(lang_path)
   if File.exist?(lang_path)
     @platforms.each do |plf|
       add_folder File.join(lang_path, plf), File.join(@build_path, lang, 'man1')
@@ -44,7 +40,7 @@ end
   add_langs(lang)
 end
 
-%x|zip -r #{name}.zip #{@build_path}|
+%x|cd #{@build_path} && zip -r ../../#{name}.zip ./|
 
 
 

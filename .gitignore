@@ -1,4 +1,6 @@
-tmp.*/
+tmp.build/*
+tmp.man/*
+tmp.src/*
 *.tmp
 tmp/
 *.tar.gz
