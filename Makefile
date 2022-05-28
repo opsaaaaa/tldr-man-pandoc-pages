@@ -4,18 +4,27 @@ SHELL := /bin/bash
 # [pandoc](https://pandoc.org/)
 # [pandoc-releases](https://github.com/jgm/pandoc/releases)
 
-
-linux.tar.gz: tmp.build
+linux.zip: tmp.build
 	./bin/build linux en linux
 
 tmp.build: tmp.man
 	mkdir tmp.build
 
-tmp.man: tmp.src
+tmp.man: tldr
 	./bin/create-pages
 
-tmp.src:
-	git clone https://github.com/tldr-pages/tldr.git .
+tldr:
+	git clone https://github.com/tldr-pages/tldr.git tldr/
+
+.PHONY: clean, update
+
+update:
+	@cd tldr; git pull
+
+clean:
+	rm *.zip
+	rm *.tmp
+	rn -r tmp.*/
 
 
 #pages.ar

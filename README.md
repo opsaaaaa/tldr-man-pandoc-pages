@@ -1,10 +1,12 @@
 # Tldr Man Pages
 
-A reposiotry of tldr pages in man formate.
+A repository of tldr pages in man formate.
 
 # Installing
 
 TODO: put something here.
+
+
 
 
 # Building

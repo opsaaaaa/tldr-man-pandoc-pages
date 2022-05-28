@@ -6,7 +6,7 @@ require 'zlib'
 
 
 
-file_list = Dir['tmp.src/pages*/**/*.md']
+file_list = Dir['tldr/pages*/**/*.md']
 
 counter = 0
 total = file_list.size
@@ -18,7 +18,7 @@ end
 begin
   file_list.each do |src_file|
     
-    dest_file = src_file.gsub(/^tmp.src\//, 'tmp.man/').gsub(/.md$/, '.1')
+    dest_file = src_file.gsub(/^tldr\//, 'tmp.man/').gsub(/.md$/, '.1')
 
     FileUtils.mkdir_p(File.dirname(dest_file))
     

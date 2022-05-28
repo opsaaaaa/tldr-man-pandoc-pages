@@ -13,22 +13,34 @@ name = ARGV[0]
 @build_path = "tmp.build/#{name}/man1/"
 
 
-def cp_tmp_man path
+FileUtils.mkdir_p(File.join(@build_path, 'man1'))
+
+def add_folder path, out = nil
+  out ||= File.join(@build_path, 'man1')
   if File.exist?(path)
-    FileUtils.cp(Dir[File.join(path,'*.gz')], @build_path) 
+    FileUtils.cp(Dir[File.join(path,'*.gz')], out) 
   end
 end
 
+def add_langs lang
+  lang_path = "tmp.man/pages.#{lang}/"
+  if File.exist?(lang_path)
+    add_folder
+  end
+end
+
+@platforms.each do |plf|
+  add_folder "tmp.man/pages/#{plf}/" 
+end
 
 @langs.each do |lang|
   lang = '.'+lang if lang!=''
-
+  
   @platforms.each do |plf|
-    cp_tmp_man "tmp.man/pages#{lang}/#{plf}/" 
+    add_folder "tmp.man/pages#{lang}/#{plf}/" 
   end
 end
 
-FileUtils.mkdir_p(@build_path)
 
 %x|zip -r #{name}.zip #{@build_path}|
 
