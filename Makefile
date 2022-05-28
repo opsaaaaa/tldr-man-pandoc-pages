@@ -4,7 +4,14 @@ SHELL := /bin/bash
 # [pandoc](https://pandoc.org/)
 # [pandoc-releases](https://github.com/jgm/pandoc/releases)
 
-pages: tmp.src
+
+linux.tar.gz: tmp.build
+	./bin/build linux en linux
+
+tmp.build: tmp.man
+	mkdir tmp.build
+
+tmp.man: tmp.src
 	./bin/create-pages
 
 tmp.src:
@@ -21,7 +28,7 @@ tmp.src:
 #pages.fa
 #pages.fr
 #pages.hi
-#pages.id
+#pages.id'
 #pages.it
 #pages.ja
 #pages.ko

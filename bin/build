@@ -12,9 +12,6 @@ name = ARGV[0]
 @platforms = ['common'] + ARGV[2].split(SPLITTER)
 @build_path = "tmp.build/#{name}/man1/"
 
-puts @langs.inspect
-puts @platforms.inspect
-
 
 def cp_tmp_man path
   if File.exist?(path)
@@ -24,22 +21,17 @@ end
 
 
 @langs.each do |lang|
-  lang = '.'+lang unless lang==''
+  lang = '.'+lang if lang!=''
 
   @platforms.each do |plf|
-    cp_tmp_man "tmp.man/pages#{lang}/#{plf}/*.gz" 
+    cp_tmp_man "tmp.man/pages#{lang}/#{plf}/" 
   end
 end
 
 FileUtils.mkdir_p(@build_path)
 
-Zlib::GzipWriter.open("#{name}.gz") do |gz|
-  gz.write IO.binread(@build_path)
-end
+%x|zip -r #{name}.zip #{@build_path}|
 
-
-
-# FileUtils.cp(/tmp\.build\/#{name}\//)
 
 
 
