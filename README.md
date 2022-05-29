@@ -18,8 +18,8 @@ Also I wanted try doing this with Pandoc.
 Download the latest release from the
 [releases]https://github.com/opsaaaaa/tldr-man-pandoc-pages/releases)
 page.
-Extract the build and place the files inside of `~/.tldr` or anywhere you want.
-And add an `man` alias for `tldr` in your `.bashrc` or `.zshrc`.
+Extract the build of your choice and place the files inside of `~/.tldr` or anywhere you want.
+And add a `man` alias for `tldr` in your `.bashrc` or `.zshrc`.
 ```
 alias tldr="man -M ~/.tldr"
 ```
@@ -50,7 +50,7 @@ I coppied the same directory structure found in '/usr/share/man' for the locales
 I have not tested that the locales work with man myself.
 
 the `pages.zip` include all the locales and platforms.
-the other zipfiles just include the main pages for thier platforms.
+the other zipfiles just include the main pages for their platforms.
 
 You can tell make to build specific locales.
 ```
