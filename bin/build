@@ -27,12 +27,22 @@ def add_langs lang
   lang_path = "tmp.man/pages.#{lang}/"
   if File.exist?(lang_path)
     @platforms.each do |plf|
+      if plf == 'all'
+        Dir["tmp.man/pages.#{lang}/*"].each do |path|
+          add_folder path
+        end
+      end
       add_folder File.join(lang_path, plf), File.join(@build_path, lang, 'man1')
     end
   end
 end
 
 @platforms.each do |plf|
+  if plf == 'all'
+    Dir["tmp.man/pages/*"].each do |path|
+      add_folder path
+    end
+  end
   add_folder "tmp.man/pages/#{plf}/" 
 end
 
