@@ -16,8 +16,9 @@ Also I wanted try doing this with Pandoc.
 # Installing
 
 Download the latest release from the
-[releases]https://github.com/opsaaaaa/tldr-man-pandoc-pages/releases)
+[releases](https://github.com/opsaaaaa/tldr-man-pandoc-pages/releases)
 page.
+
 Extract the build of your choice and place the files inside of `~/.tldr` or anywhere you want.
 And add a `man` alias for `tldr` in your `.bashrc` or `.zshrc`.
 ```
