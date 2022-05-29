@@ -44,18 +44,20 @@ make
 ```
 
 
-## About laungages.
+## About languages.
 
-I coppied the same directory structor found in '/usr/share/man' for the locales.
-I have not tested the locales myself.
+I coppied the same directory structure found in '/usr/share/man' for the locales.
+I have not tested that the locales work with man myself.
 
+the `pages.zip` include all the locales and platforms.
+the other zipfiles just include the main pages for thier platforms.
 
-The code scripts can output them
-You can generate zipfiles with locales in them by adding a new file to the Makefile
+You can tell make to build specific locales.
 ```
 linux_uk.zip: tmp.build/
-	./bin/build pages uk all
-
+	./bin/build linux_uk uk linux
+# ---
+make linux_uk.zip
 ```
 
 
