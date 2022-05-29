@@ -6,7 +6,7 @@ require 'zlib'
 
 
 
-file_list = ARGV[0] == 'local' ? Dir['tldr/pages*/**/*.md'] : Dir['tldr/pages/**/*.md']
+file_list = Dir['tldr/pages*/**/*.md']
 
 
 counter = 0
@@ -32,7 +32,7 @@ begin
       output dest_file
     end
 
-    pandoc.convert File.read(src_file).gsub(/^- /, '')
+    pandoc.convert File.read(src_file).gsub(/(^- |^> )/, '')
 
     Zlib::GzipWriter.open(dest_file+'.gz') do |gz|
       gz.write IO.binread(dest_file)

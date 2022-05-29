@@ -1,4 +1,5 @@
 SHELL := /bin/bash
+LOCALES = 'ar,bn,bs,ca,da,de,es,fa,fr,hi,id,it,ja,ko,ml,ne,nl,no,pl,pt_BR,pt_PT,ro,ru,sh,sr,sv,ta,th,tr,uk,uz,zh,zh_TW'
 
 # prerequisite
 # [pandoc](https://pandoc.org/)
@@ -12,7 +13,7 @@ create: pages.zip linux.zip android.zip osx.zip sunos.zip windows.zip
 
 # Build zip files
 pages.zip: tmp.build/
-	./bin/build pages en all
+	./bin/build pages $(LOCALES) all
 
 linux.zip: tmp.build/
 	./bin/build linux en linux
@@ -33,7 +34,7 @@ windows.zip: tmp.build/
 
 # Make tmp files from tldr source
 tmp.build/: tmp.man/
-	mkdir tmp.build
+	mkdir -p tmp.build
 
 tmp.man/: tldr/
 	./bin/create-pages
