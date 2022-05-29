@@ -28,6 +28,16 @@ echo 'alias tldr="man -M ~/.tldr"' >> ~/.zshrc'
 ```
 
 
+## Colorful man pages with most
+
+Most is like less but colorful.
+you can tell man to use most instead of less like so:
+```
+sudo apt install most
+export PAGER=“most”
+```
+
+
 
 # Building
 
